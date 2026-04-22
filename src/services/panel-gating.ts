@@ -27,10 +27,11 @@ export enum PanelGateReason {
  * signals that aren't already covered by isProUser.
  */
 export function hasPremiumAccess(authState?: AuthSession): boolean {
-  if (getSecretState('WORLDMONITOR_API_KEY').present) return true;
-  if (isProUser()) return true;
-  if (authState?.user?.role === 'pro') return true;
-  return false;
+  // Personal deploy: grant full access (no paywall, no blur overlay).
+  void authState;
+  void getSecretState;
+  void isProUser;
+  return true;
 }
 
 /**
