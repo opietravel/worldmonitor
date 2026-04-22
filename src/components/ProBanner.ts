@@ -42,12 +42,12 @@ function dismiss(): void {
   localStorage.setItem(DISMISS_KEY, String(Date.now()));
 }
 
+// Pro banner disabled on personal deploy — see AGPL §5 considerations for public hosts
+const PRO_BANNER_DISABLED: boolean = true;
+
 export function showProBanner(container: HTMLElement): void {
-  // Cache container even on early-return paths so the entitlement-change
-  // listener can re-mount on a downgrade. App.ts calls this once at init
-  // regardless of premium state, so caching here covers both "initially
-  // free" and "initially premium then downgrade" trajectories.
   bannerContainer = container;
+  if (PRO_BANNER_DISABLED) return;
 
   if (bannerEl) return;
   if (window.self !== window.top) return;
